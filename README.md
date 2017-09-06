@@ -2,12 +2,13 @@
 ## Introductory Project: Diagonal Sudoku Solver
 
 # Question 1 (Naked Twins)
-Q: How do we use constraint propagation to solve the naked twins problem?  
-A: *Student should provide answer here*
+Q: How do we use constraint propagation to solve the naked twins problem?
+A: In this exercise we used the common constraints of Sudoku to make an assumptions about a boxes value. This is the usual way that a human would solve Sudoku, taking it step by step and using the process of elimination to decide which values could potentially go in each box. We used this information to apply an algorithm that stated simply: “If two boxes contain the same two values, then those two boxes will correlate to those two values.” Even though we don’t know which box is which, we can eliminate those two values from the rest of the units. This applies an additional constraint to the system that helps us reduce the search space.
 
 # Question 2 (Diagonal Sudoku)
-Q: How do we use constraint propagation to solve the diagonal sudoku problem?  
-A: *Student should provide answer here*
+Q: How do we use constraint propagation to solve the diagonal Sudoku problem?
+A: In order to solve a Sudoku puzzle, each "unit" is constrained by a certain set of rules. In this case we make sure that each row, column, and 3x3 square contains only
+the numbers 1-9 uniquely within itself. After providing the standard units for Sudoku, an additional two units were added to represent the diagonals.
 
 ### Install
 
