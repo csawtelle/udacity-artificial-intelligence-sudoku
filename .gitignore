@@ -2,6 +2,7 @@
 __pycache__
 *.pyc
 **/*.pyc
+**/**.pyc
 
 sudoku-[0-9]*.zip
 sudoku-result-[0-9]*.json

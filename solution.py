@@ -45,28 +45,31 @@ def naked_twins(values):
     Returns:
         the values dictionary with the naked twins eliminated from peers.
     """
-
-    naked_twins = {}
+    # Loop through each unit in the list
     for unit in unitlist:
-        values = {}
-        for box in unit:
-            if len(values[box]) == 2:
-                if values[box] not in vdict:
-                    vdict[values[box]] = [box]
-                else:
-                    vdict[values[box]].append(box)
-        for key in vdict:
-            if len(vdict[key]) == 2:
-                if not key in naked_twins:
-                    naked_twins[key] = [unit]
-                else:
-                    naked_twins[key].append(unit)
-    for key in naked_twins:
-        for unit in naked_twins[key]:
+      # Create a new naked_twin list for each unit
+      naked_twin = []
+      # Check every box in the unit
+      for box in unit:
+        #Check every box in the unit
+        for twin in unit:
+          # If the box has two values the same as any other unit but isn't the same unit, its a twin
+          if (len(values[box]) == 2) and (values[box] == values[twin]) and twin != box:
+            # Store the twin
+            naked_twin.append(twin)
+      # Make sure we found a twin before continueing
+      if(naked_twin):
+        # For each of the values in any twin...
+        for number in values[naked_twin[0]]:
+            # Check every box in the unit
             for box in unit:
-                if values[box] != key:
-                    assign_value(values, box, values[box].replace(key[0], ''))
-                    assign_value(values, box, values[box].replace(key[1], ''))
+                # Get the value for every box in the unit
+                vals = values[box]
+                # Check if the values of that box contain twin numbers
+                if number in vals and box not in naked_twin:
+                    # If they do, remove them from the box
+                    assign_value(values, box, values[box].replace(number, ''))
+    # Return the values after the twins have been removed
     return values
 
 def grid_values(grid):
@@ -151,6 +154,8 @@ def reduce_puzzle(values):
         solved_values_before = len([box for box in values.keys() if len(values[box]) == 1])
         # Use the Eliminate Strategy
         values = eliminate(values)
+        # ADDED NAKED TWINS
+        values = naked_twins(values)
         # Use the Only Choice Strategy
         values = only_choice(values)
         # Check how many boxes have a determined value, to compare
@@ -226,3 +231,4 @@ if __name__ == '__main__':
         pass
     except:
         print('We could not visualize your board due to a pygame issue. Not a problem! It is not a requirement.')
+
